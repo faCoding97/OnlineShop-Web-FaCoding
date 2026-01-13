@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 // app/blog/[id]/page.tsx
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -27,24 +29,24 @@ type BlogPost = {
 export const revalidate = 60;
 
 // آدرس‌های استاتیک
-export async function generateStaticParams() {
-  if (
-    !process.env.NEXT_PUBLIC_SUPABASE_URL ||
-    !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-  ) {
-    return [];
-  }
+// export async function generateStaticParams() {
+//   if (
+//     !process.env.NEXT_PUBLIC_SUPABASE_URL ||
+//     !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+//   ) {
+//     return [];
+//   }
 
-  const supabase = createServerSupabaseClient();
+//   const supabase = createServerSupabaseClient();
 
-  const { data: posts, error } = await supabase
-    .from("site_blog_posts")
-    .select("id");
+//   const { data: posts, error } = await supabase
+//     .from("site_blog_posts")
+//     .select("id");
 
-  if (error || !posts) return [];
+//   if (error || !posts) return [];
 
-  return posts.map((post) => ({ id: post.id }));
-}
+//   return posts.map((post) => ({ id: post.id }));
+// }
 
 // متادیتا برای هر پست
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
