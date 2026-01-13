@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Anchor offset for sticky header */
+.anchor-section { scroll-margin-top: 84px; }
+@media (min-width: 768px){ .anchor-section { scroll-margin-top: 96px; } }
+
+/* Map iframe responsiveness */
+.embed-responsive iframe { width: 100%; height: 360px; border: 0; }
+@media (min-width: 768px) { .embed-responsive iframe { height: 460px; } }
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply antialiased;
+    background-color: var(--bg);
+    color: var(--fg);
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl bg-white shadow-soft border border-slate-100;
+  }
+}
