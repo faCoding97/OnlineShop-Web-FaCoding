@@ -28,7 +28,15 @@ export const revalidate = 60;
 
 // آدرس‌های استاتیک
 export async function generateStaticParams() {
+  if (
+    !process.env.NEXT_PUBLIC_SUPABASE_URL ||
+    !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  ) {
+    return [];
+  }
+
   const supabase = createServerSupabaseClient();
+
   const { data: posts, error } = await supabase
     .from("site_blog_posts")
     .select("id");
@@ -48,7 +56,10 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
     .eq("id", params.id)
     .single();
 
-  if (!post) {
+  if (
+    !process.env.NEXT_PUBLIC_SUPABASE_URL ||
+    !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  ) {
     return {
       title: "Post not found | IVA Blog",
       description: "Rug care tips and buying guides from IVA in Klerksdorp.",
